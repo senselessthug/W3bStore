@@ -6,12 +6,14 @@ function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// Add item to cart
 function addToCart(productName, price) {
     cart.push({ name: productName, price });
     saveCart(); // Save to localStorage whenever cart is updated
     renderCart();
 }
 
+// Render cart contents
 function renderCart() {
     if (cart.length === 0) {
         cartElement.innerHTML = '<p>Кошик порожній</p>';
@@ -31,10 +33,12 @@ function renderCart() {
 // Submit order and clear cart
 function submitOrder(event) {
     event.preventDefault();
+    
     if (cart.length === 0) {
         alert('Ваш кошик порожній!');
         return;
     }
+    
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const address = document.getElementById('address').value;
