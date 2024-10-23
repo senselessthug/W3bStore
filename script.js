@@ -4,11 +4,13 @@ const cartElement = document.getElementById('cart');
 // Save cart to localStorage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+    console.log('Cart saved to localStorage:', localStorage.getItem('cart')); // Debugging: Check if cart is saved
 }
 
 // Add item to cart
 function addToCart(productName, price) {
     cart.push({ name: productName, price });
+    console.log('Cart after adding item:', cart); // Debugging: Check cart content after adding an item
     saveCart(); // Save to localStorage whenever cart is updated
     renderCart();
 }
@@ -68,5 +70,6 @@ function submitOrder(event) {
 
 // Render cart on page load
 document.addEventListener('DOMContentLoaded', () => {
-    renderCart();
+    renderCart(); // Load cart from localStorage and display it
+    console.log('Cart loaded from localStorage:', cart); // Debugging: Check the cart loaded on page load
 });
