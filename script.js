@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let cartContent = '<ul>';
             let total = 0;
             cart.forEach(item => {
-                cartContent += `<li>${item.name} - ${item.price} грн</li>`;
+                cartContent += `<li>${item.name} - ${item.price} грн</li>`; // Исправлено
                 total += item.price;
             });
-            cartContent += `<li><strong>Разом: ${total} грн</strong></li>`;
+            cartContent += `<li><strong>Разом: ${total} грн</strong></li>`; // Исправлено
             cartContent += '</ul>';
             cartElement.innerHTML = cartContent;
         }
@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let total = 0;
         cart.forEach(item => {
-            orderDetails += `<li>${item.name} - ${item.price} грн</li>`;
+            orderDetails += `<li>${item.name} - ${item.price} грн</li>`; // Исправлено
             total += item.price;
         });
-        orderDetails += `<li><strong>Разом: ${total} грн</strong></li>`;
+        orderDetails += `<li><strong>Разом: ${total} грн</strong></li>`; // Исправлено
         orderDetails += '</ul>';
 
         document.getElementById('orderDetails').innerHTML = orderDetails;
