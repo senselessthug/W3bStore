@@ -14,33 +14,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Перевірка регулярними виразами
-    function validateProductName(name) {
-        const nameRegex = /^[a-zA-Z0-9\s\-_]+$/;
-        return nameRegex.test(name);
+   function addToCart(productName, price) {
+    if (!validateProductName(productName)) {
+        alert("Назва товару має містити лише літери, цифри, пробіли та символи '-', '_'.");
+        return;
     }
 
-    function validateProductPrice(price) {
-        const priceRegex = /^\d+(\.\d{2})?$/;
-        return priceRegex.test(price);
+    if (!validateProductPrice(price)) {
+        alert("Ціна товару має бути додатним числом з двома десятковими знаками.");
+        return;
     }
 
-    // Функція для додавання товару в кошик з перевіркою
-    function addToCart(productName, price) {
-        if (!validateProductName(productName)) {
-            alert("Назва товару має містити лише літери, цифри, пробіли та символи '-', '_'.");
-            return;
-        }
+    cart.push({ name: productName, price });
+    saveCart();
+    renderCart();
+}
 
-        if (!validateProductPrice(price)) {
-            alert("Ціна товару має бути додатним числом з двома десятковими знаками.");
-            return;
-        }
+// Функция для проверки названия товара
+function validateProductName(name) {
+    const nameRegex = /^[a-zA-Z0-9\s\-_]+$/;
+    return nameRegex.test(name);
+}
 
-        cart.push({ name: productName, price });
-        saveCart();
-        renderCart();
-    }
+// Функция для проверки цены товара
+function validateProductPrice(price) {
+    const priceRegex = /^\d+(\.\d{2})?$/;
+    return price > 0 && priceRegex.test(price.toString());
+}
+
 
     function renderCart() {
         if (cart.length === 0) {
