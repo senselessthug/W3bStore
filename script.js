@@ -2,12 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = [];
     const cartElement = document.getElementById('cart');
 
-    // Функция для сохранения корзины в localStorage
     function saveCart() {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    // Функция для загрузки корзины из localStorage
     function loadCart() {
         const storedCart = localStorage.getItem('cart');
         if (storedCart) {
@@ -16,14 +14,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Функция для добавления товара в корзину
+    // Перевірка регулярними виразами
+    function validateProductName(name) {
+        const nameRegex = /^[a-zA-Z0-9\s\-_]+$/;
+        return nameRegex.test(name);
+    }
+
+    function validateProductPrice(price) {
+        const priceRegex = /^\d+(\.\d{2})?$/;
+        return priceRegex.test(price);
+    }
+
+    // Функція для додавання товару в кошик з перевіркою
     function addToCart(productName, price) {
+        if (!validateProductName(productName)) {
+            alert("Назва товару має містити лише літери, цифри, пробіли та символи '-', '_'.");
+            return;
+        }
+
+        if (!validateProductPrice(price)) {
+            alert("Ціна товару має бути додатним числом з двома десятковими знаками.");
+            return;
+        }
+
         cart.push({ name: productName, price });
-        saveCart(); // Сохраняем корзину после добавления товара
+        saveCart();
         renderCart();
     }
 
-    // Функция для отображения корзины
     function renderCart() {
         if (cart.length === 0) {
             cartElement.innerHTML = '<p>Кошик порожній</p>';
@@ -31,16 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
             let cartContent = '<ul>';
             let total = 0;
             cart.forEach(item => {
-                cartContent += `<li>${item.name} - ${item.price} грн</li>`; // Исправлено
+                cartContent += `<li>${item.name} - ${item.price} грн</li>`;
                 total += item.price;
             });
-            cartContent += `<li><strong>Разом: ${total} грн</strong></li>`; // Исправлено
+            cartContent += `<li><strong>Разом: ${total} грн</strong></li>`;
             cartContent += '</ul>';
             cartElement.innerHTML = cartContent;
         }
     }
 
-    // Функция для оформления заказа
     function submitOrder(event) {
         event.preventDefault();
         if (cart.length === 0) {
@@ -59,25 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let total = 0;
         cart.forEach(item => {
-            orderDetails += `<li>${item.name} - ${item.price} грн</li>`; // Исправлено
+            orderDetails += `<li>${item.name} - ${item.price} грн</li>`;
             total += item.price;
         });
-        orderDetails += `<li><strong>Разом: ${total} грн</strong></li>`; // Исправлено
+        orderDetails += `<li><strong>Разом: ${total} грн</strong></li>`;
         orderDetails += '</ul>';
 
         document.getElementById('orderDetails').innerHTML = orderDetails;
 
-        // Очищаем корзину и localStorage после заказа
         cart = [];
-        saveCart(); // Сохраняем пустую корзину в localStorage
+        saveCart();
         renderCart();
         document.getElementById('orderForm').reset();
     }
 
-    // Загружаем корзину при загрузке страницы
     loadCart();
 
-    // Делаем функцию addToCart доступной глобально
     window.addToCart = addToCart;
     window.submitOrder = submitOrder;
 });
