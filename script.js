@@ -13,10 +13,10 @@ function renderCart() {
         let cartContent = '<ul>';
         let total = 0;
         cart.forEach(item => {
-            cartContent += <li>${item.name} - ${item.price} грн</li>;
+            cartContent += `<li>${item.name} - ${item.price} грн</li>`;
             total += item.price;
         });
-        cartContent += <li><strong>Разом: ${total} грн</strong></li>;
+        cartContent += `<li><strong>Разом: ${total} грн</strong></li>`;
         cartContent += '</ul>';
         cartElement.innerHTML = cartContent;
     }
@@ -32,18 +32,18 @@ function submitOrder(event) {
     const email = document.getElementById('email').value;
     const address = document.getElementById('address').value;
 
-    let orderDetails = <h3>Деталі замовлення</h3>;
-    orderDetails += <p><strong>Ім'я:</strong> ${name}</p>;
-    orderDetails += <p><strong>Email:</strong> ${email}</p>;
-    orderDetails += <p><strong>Адреса доставки:</strong> ${address}</p>;
+    let orderDetails = `<h3>Деталі замовлення</h3>`;
+    orderDetails += `<p><strong>Ім'я:</strong> ${name}</p>`;
+    orderDetails += `<p><strong>Email:</strong> ${email}</p>`;
+    orderDetails += `<p><strong>Адреса доставки:</strong> ${address}</p>`;
     orderDetails += '<h4>Товари:</h4><ul>';
     
     let total = 0;
     cart.forEach(item => {
-        orderDetails += <li>${item.name} - ${item.price} грн</li>;
+        orderDetails += `<li>${item.name} - ${item.price} грн</li>`;
         total += item.price;
     });
-    orderDetails += <li><strong>Разом: ${total} грн</strong></li>;
+    orderDetails += `<li><strong>Разом: ${total} грн</strong></li>`;
     orderDetails += '</ul>';
 
     document.getElementById('orderDetails').innerHTML = orderDetails;
